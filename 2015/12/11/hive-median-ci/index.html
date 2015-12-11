@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Clemens&#39; blog</title>
+  <title>Calculating confidence intervals for median on Hiveh | Clemens&#39; blog</title>
   <meta name="author" content="Clemens Valiente">
   
   <meta name="description" content="A blog that mostly covers experiences with the hadoop architecture">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Calculating confidence intervals for median on Hiveh"/>
   <meta property="og:site_name" content="Clemens&#39; blog"/>
 
   
@@ -44,8 +44,7 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -55,7 +54,7 @@
       
       
   
-    <h1 class="title"><a href="/2015/12/11/hive-median-ci/">Calculating confidence intervals for median on Hiveh</a></h1>
+    <h1 class="title">Calculating confidence intervals for median on Hiveh</h1>
   
 
     </header>
@@ -75,6 +74,29 @@
       
         
         
+  
+  <div class="tags">
+    <a href="/tags/confidence-interval/">confidence interval</a>, <a href="/tags/hive/">hive</a>, <a href="/tags/median/">median</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
       
       <div class="clearfix"></div>
     </footer>
@@ -82,75 +104,27 @@
 </article>
 
 
+<section id="comment">
+  <h1 class="title">Comments</h1>
 
-
-  <article class="post">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-12-11T22:05:08.000Z"><a href="/2015/12/11/setup-hexo/">2015-12-11</a></time>
-      
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://cvaliente.github.io/2015/12/11/hive-median-ci/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
-    <h1 class="title"><a href="/2015/12/11/setup-hexo/">How to set up hexo on github.io</a></h1>
-  
+</section>
 
-    </header>
-    <div class="entry">
-      
-        <p>In my first post on this blog I am going to explain how I set it up in the first place.</p>
-<p>I chose to use <a href="https:/hexo.io" target="_blank" rel="external">hexo.io</a> on <a href="https://pages.github.com/" target="_blank" rel="external">Github Pages</a>.<br>This allows me to write my posts in <a href="https://help.github.com/articles/markdown-basics/" target="_blank" rel="external">markdown</a> language and deploy them using git.</p>
-<h2 id="resources"><a href="#resources" class="headerlink" title="resources"></a>resources</h2><p>For the most part I followed Jamie Paton’s <a href="http://jdpaton.github.io/2012/11/05/setup-hexo/" target="_blank" rel="external">guide</a>. Since it is a couple of years old by now, a few things have to be done differently.<br>I am going to assume you are running ubuntu or a similar distribution of Linux. All the following commands are to be issued in your terminal.</p>
-<h2 id="installation_of_prerequisites"><a href="#installation_of_prerequisites" class="headerlink" title="installation of prerequisites"></a>installation of prerequisites</h2><p>As already outlined in the <a href="https://hexo.io/docs/index.html" target="_blank" rel="external">hexo docs</a>, you need <a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a> and <a href="http://git-scm.com/" target="_blank" rel="external">Git</a>.<br>You might already have git, otherwise install it with</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install git</span><br></pre></td></tr></table></figure>
-<p>For the installation of Node.js, hexo (and I) recommend <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a>. Get it via:</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/creationix/nvm/v0.<span class="number">29.0</span>/install.<span class="keyword">sh</span> | bash</span><br></pre></td></tr></table></figure>
-<p>then install Node.js via</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm <span class="keyword">install</span> <span class="number">5.2</span></span><br></pre></td></tr></table></figure>
-<p>5.2.0 is the latest (stable) version as of the time of this post. You can also choose the LTS version instead (4.2.3)</p>
-<h2 id="install_hexo"><a href="#install_hexo" class="headerlink" title="install hexo"></a>install hexo</h2><p>Now you can install hexo!</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo-cli</span></span><br></pre></td></tr></table></figure>
-<p>Go to the directory where you want to store your project in, and initialise hexo via</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init username<span class="class">.github</span><span class="class">.io</span></span><br><span class="line">cd username<span class="class">.github</span><span class="class">.io</span></span><br></pre></td></tr></table></figure>
-<p>As suggested by Jamie, now is a good time to set up a few general things like title and author:</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">vim</span> _<span class="tag">config</span><span class="class">.yml</span></span><br></pre></td></tr></table></figure>
-<p>Feel free to use gedit, sublime or the text editor of your choise instead of vim. You can find the documentation of the settings <a href="http://hexo.io/docs/configuration.html" target="_blank" rel="external">here</a>.<br>Add the entries for the github deployment:</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/username/username.github.com.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
-<p>If you set up ssh authentication for github, you can also use the ssh URL here.<br>You also need to install the plugin that allows hexo to deploy to git:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure>
-<p>If you are using multiple accounts on github with ssh, and you need some additional configuration to identify the correct one for deployment, the git repository is set up in .deploy_git in your hexo directory.</p>
-<h2 id="set_up_github"><a href="#set_up_github" class="headerlink" title="set up github"></a>set up github</h2><p>For Github Pages, set up a new repository on your github account named username.github.io - it is important that the username matches your github username.</p>
-<h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><p>You are almost finished! To deploy hexo on your github page, use</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">hexo</span> generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<p>or just <code>hexo generate -d</code>. You can now find your blog at <a href="https://username.github.io" target="_blank" rel="external">https://username.github.io</a><br>You will notice that hexo automatically added a “hello world” first blog. You might want to get rid of that one before you announce your blog.<br>Delete <code>./source/_posts/hello_world.md</code>, and then run <code>hexo clean</code> followed by <code>hexo generate -d</code></p>
-<h2 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h2><p>There are already quite a lot of <a href="https://hexo.io/themes/" target="_blank" rel="external">themes</a> for hexo, and if you don’t like any of them you can also create your own.<br>When I set up my blog, it came with the default theme landscape which I didn’t like much, so I switched to <a href="https://hexo.io/hexo-theme-light/" target="_blank" rel="external">“light”</a>.</p>
-<h2 id="write_a_post"><a href="#write_a_post" class="headerlink" title="write a post"></a>write a post</h2><p>To create a new blog post, use<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="built_in">new</span> <span class="built_in">post</span> &lt;title&gt;</span><br></pre></td></tr></table></figure></p>
-<p>then edit the file in <code>./source/_posts/&lt;title&gt;.md</code><br>After finishing your article, run <code>hexo generate -d</code> again to deploy the new article on your blog!</p>
-<p>Thanks a lot to Jamie again for the excellent initial guide!</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-<nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav></div></div>
+</div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
