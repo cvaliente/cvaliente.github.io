@@ -5,16 +5,19 @@
   
   <title>How to set up hexo on github pages | Clemens&#39; blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="How to set up hexo on github.ioo">
+  <meta name="description" content="How to set up hexo on github.ioIn my first post on this blog I am going to explain how I set it up in the first place.
+I chose to use hexo.io on Github Pages.This allows me to write my posts in markdo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to set up hexo on github pages">
 <meta property="og:url" content="http://cvaliente.github.io/2015/12/11/setup-hexo/index.html">
 <meta property="og:site_name" content="Clemens' blog">
-<meta property="og:description" content="How to set up hexo on github.ioo">
-<meta property="og:updated_time" content="2015-12-11T22:08:18.644Z">
+<meta property="og:description" content="How to set up hexo on github.ioIn my first post on this blog I am going to explain how I set it up in the first place.
+I chose to use hexo.io on Github Pages.This allows me to write my posts in markdo">
+<meta property="og:updated_time" content="2015-12-11T22:31:31.880Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to set up hexo on github pages">
-<meta name="twitter:description" content="How to set up hexo on github.ioo">
+<meta name="twitter:description" content="How to set up hexo on github.ioIn my first post on this blog I am going to explain how I set it up in the first place.
+I chose to use hexo.io on Github Pages.This allows me to write my posts in markdo">
   
     <link rel="alternative" href="/atom.xml" title="Clemens&#39; blog" type="application/atom+xml">
   
@@ -86,11 +89,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="How_to_set_up_hexo_on_github-ioo"><a href="#How_to_set_up_hexo_on_github-ioo" class="headerlink" title="How to set up hexo on github.ioo"></a>How to set up hexo on github.ioo</h1>
+        <h1 id="How_to_set_up_hexo_on_github-io"><a href="#How_to_set_up_hexo_on_github-io" class="headerlink" title="How to set up hexo on github.io"></a>How to set up hexo on github.io</h1><p>In my first post on this blog I am going to explain how I set it up in the first place.</p>
+<p>I chose to use <a href="https:/hexo.io" target="_blank" rel="external">hexo.io</a> on <a href="https://pages.github.com/" target="_blank" rel="external">Github Pages</a>.<br>This allows me to write my posts in <a href="https://help.github.com/articles/markdown-basics/" target="_blank" rel="external">markdown</a> language and deploy them using git.</p>
+<h2 id="resources"><a href="#resources" class="headerlink" title="resources"></a>resources</h2><p>For the most part I followed Jamie Paton’s <a href="http://jdpaton.github.io/2012/11/05/setup-hexo/" target="_blank" rel="external">guide</a>. Since it is a couple of years old by now, a few things have to be done differently.<br>I am going to assume you are running ubuntu or a similar distribution of Linux. All the following commands are to be issued in your terminal.</p>
+<h2 id="installation_of_prerequisites"><a href="#installation_of_prerequisites" class="headerlink" title="installation of prerequisites"></a>installation of prerequisites</h2><p>As already outlined in the <a href="https://hexo.io/docs/index.html" target="_blank" rel="external">hexo docs</a>, you need <a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a> and <a href="http://git-scm.com/" target="_blank" rel="external">Git</a>.<br>You might already have git, otherwise install it with</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install git</span><br></pre></td></tr></table></figure>
+<p>For the installation of Node.js, hexo (and I) recommend <a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a>. Get it via:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- http<span class="variable">s:</span>//raw.githubusercontent.<span class="keyword">com</span>/creationix/nvm/v0.<span class="number">29.0</span>/install.<span class="keyword">sh</span> | bash</span><br></pre></td></tr></table></figure>
+<p>then install Node.js via</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm <span class="keyword">install</span> <span class="number">5.2</span></span><br></pre></td></tr></table></figure>
+<p>5.2.0 is the latest (stable) version as of the time of this post. You can also choose the LTS version instead (4.2.3)</p>
+<h2 id="install_hexo"><a href="#install_hexo" class="headerlink" title="install hexo"></a>install hexo</h2><p>Now you can install hexo!</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo-cli</span></span><br></pre></td></tr></table></figure>
+<p>Go to the directory where you want to store your project in, and initialise hexo via</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init username<span class="class">.github</span><span class="class">.io</span></span><br><span class="line">cd username<span class="class">.github</span><span class="class">.io</span></span><br></pre></td></tr></table></figure>
+<p>As suggested by Jamie, now is a good time to set up a few general things like title and author:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">vim</span> _<span class="tag">config</span><span class="class">.yml</span></span><br></pre></td></tr></table></figure>
+<p>Feel free to use gedit, sublime or the text editor of your choise instead of vim. You can find the documentation of the settings <a href="http://hexo.io/docs/configuration.html" target="_blank" rel="external">here</a>.<br>Add the entries for the github deployment:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/username/username.github.com.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
+<p>You also need to install the plugin that allows hexo to deploy to git:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="set_up_github"><a href="#set_up_github" class="headerlink" title="set up github"></a>set up github</h2><p>For Github Pages, set up a new repository on your github account named username.github.io - it is important that the username matches your github username.</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cvaliente.github.io/2015/12/11/setup-hexo/" data-id="cii286i7k0001cpn8d0m1cvug" class="article-share-link">Share</a>
+      <a data-url="http://cvaliente.github.io/2015/12/11/setup-hexo/" data-id="cii292z4k0001jkn8lft893z7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo-github/">hexo github</a></li></ul>
