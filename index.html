@@ -110,64 +110,20 @@
 <p>If you are using multiple accounts on github with ssh, and you need some additional configuration to identify the correct one for deployment, the git repository is set up in .deploy_git in your hexo directory.</p>
 <h2 id="set_up_github"><a href="#set_up_github" class="headerlink" title="set up github"></a>set up github</h2><p>For Github Pages, set up a new repository on your github account named username.github.io - it is important that the username matches your github username.</p>
 <h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><p>You are almost finished! To deploy hexo on your github page, use</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">generate</span> -<span class="literal">d</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">hexo</span> generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>or just <code>hexo generate -d</code>. You can now find your blog at <a href="https://username.github.io" target="_blank" rel="external">https://username.github.io</a><br>You will notice that hexo automatically added a “hello world” first blog. You might want to get rid of that one before you announce your blog.<br>Delete <code>./source/_posts/hello_world.md</code>, and then run <code>hexo clean</code> followed by <code>hexo generate -d</code></p>
 <h2 id="write_a_post"><a href="#write_a_post" class="headerlink" title="write a post"></a>write a post</h2><p>To create a new blog post, use<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="built_in">new</span> <span class="built_in">post</span> &lt;title&gt;</span><br></pre></td></tr></table></figure></p>
-<p>then edit the file in ./source/_posts/<title>.md<br>After finishing your article, run <code>hexo generate -d</code> again to deploy the new article on your blog! You can find it at <a href="https://username.github.io" target="_blank" rel="external">https://username.github.io</a></title></p>
+<p>then edit the file in <code>./source/_posts/&lt;title&gt;.md</code><br>After finishing your article, run <code>hexo generate -d</code> again to deploy the new article on your blog!</p>
 <p>Thanks a lot to Jamie again for the excellent initial guide!</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cvaliente.github.io/2015/12/11/setup-hexo/" data-id="cii292z4k0001jkn8lft893z7" class="article-share-link">Share</a>
+      <a data-url="http://cvaliente.github.io/2015/12/11/setup-hexo/" data-id="cii2a2izg0000xin8wl652n2x" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/11/hello-world/" class="article-date">
-  <time datetime="2015-12-11T21:47:31.616Z" itemprop="datePublished">2015-12-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/11/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cvaliente.github.io/2015/12/11/hello-world/" data-id="cii292z4d0000jkn89bp63js0" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -186,7 +142,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -195,7 +151,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a>
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a>
     </div>
   </div>
 
@@ -204,7 +160,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -217,10 +173,6 @@
         
           <li>
             <a href="/2015/12/11/setup-hexo/">How to set up hexo on github.io</a>
-          </li>
-        
-          <li>
-            <a href="/2015/12/11/hello-world/">Hello World</a>
           </li>
         
       </ul>
