@@ -13,7 +13,7 @@ I chose to use hexo.io on Github Pages.This allows me to write my posts in markd
 <meta property="og:site_name" content="Clemens' blog">
 <meta property="og:description" content="In my first post on this blog I am going to explain how I set it up in the first place.
 I chose to use hexo.io on Github Pages.This allows me to write my posts in markdown language and deploy them usi">
-<meta property="og:updated_time" content="2015-12-11T22:38:23.750Z">
+<meta property="og:updated_time" content="2015-12-11T22:53:55.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to set up hexo on github.io">
 <meta name="twitter:description" content="In my first post on this blog I am going to explain how I set it up in the first place.
@@ -107,8 +107,9 @@ I chose to use hexo.io on Github Pages.This allows me to write my posts in markd
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">vim</span> _<span class="tag">config</span><span class="class">.yml</span></span><br></pre></td></tr></table></figure>
 <p>Feel free to use gedit, sublime or the text editor of your choise instead of vim. You can find the documentation of the settings <a href="http://hexo.io/docs/configuration.html" target="_blank" rel="external">here</a>.<br>Add the entries for the github deployment:</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/username/username.github.com.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
-<p>You also need to install the plugin that allows hexo to deploy to git:</p>
+<p>If you set up ssh authentication for github, you can also use the ssh URL here.<br>You also need to install the plugin that allows hexo to deploy to git:</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure>
+<p>If you are using multiple accounts on github with ssh, and you need some additional configuration to identify the correct one for deployment, the git repository is set up in .deploy_git in your hexo directory.</p>
 <h2 id="set_up_github"><a href="#set_up_github" class="headerlink" title="set up github"></a>set up github</h2><p>For Github Pages, set up a new repository on your github account named username.github.io - it is important that the username matches your github username.</p>
 <h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><p>You are almost finished! To deploy hexo on your github page, use</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">generate</span> -<span class="literal">d</span></span><br></pre></td></tr></table></figure>
