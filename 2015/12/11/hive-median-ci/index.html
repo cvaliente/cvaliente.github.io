@@ -1,66 +1,118 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   
   <title>Calculating confidence intervals for median on Hive | Clemens&#39; blog</title>
-  <meta name="author" content="Clemens Valiente">
-  
-  <meta name="description" content="A blog that mostly covers experiences with the hadoop architecture">
-  
-  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="Calculating confidence intervals for median on Hive"/>
-  <meta property="og:site_name" content="Clemens&#39; blog"/>
-
   
-    <meta property="og:image" content="undefined"/>
+  <meta name="keywords" content="confidence interval,hive,median">
   
 
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Clemens&#39; blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <meta name="description" content="At trivago, we are generating price-related statistics using billions of logged entries every day containing information provided by third parties. This can get quite messy, as you can easily find hot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Calculating confidence intervals for median on Hive">
+<meta property="og:url" content="http://cvaliente.github.io/2015/12/11/hive-median-ci/index.html">
+<meta property="og:site_name" content="Clemens' blog">
+<meta property="og:description" content="At trivago, we are generating price-related statistics using billions of logged entries every day containing information provided by third parties. This can get quite messy, as you can easily find hot">
+<meta property="og:updated_time" content="2015-12-12T21:48:52.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calculating confidence intervals for median on Hive">
+<meta name="twitter:description" content="At trivago, we are generating price-related statistics using billions of logged entries every day containing information provided by third parties. This can get quite messy, as you can easily find hot">
+  
+  
+    <link rel="icon" href="/favicon.png">
   
 
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+  
+    <link rel="stylesheet" href="/scrollLoading/style.css" type="text/css">
+  
+  
+
+
+  
+
+  
+    <link href='//fonts.useso.com/css?family=Titillium+Web:300,400,600' rel='stylesheet' type='text/css'>
+    <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
 </head>
 
-
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">Clemens&#39; blog</a></h1>
-  <h2><a href="/">short messages from the world of hadoop</a></h2>
-</div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="/">Home</a></li>
-    
-      <li><a href="/archives">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div></header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  <div id="wrap">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div class="container">
+      <div class="container-inner">
+        <div id="header-title">
+          <h1 class="logo-wrap">
+            <a href="/" class="logo"></a>
+          </h1>
+          
+            <h2 class="subtitle-wrap">
+              <p class="subtitle">short messages from the world of hadoop</p>
+            </h2>
+          
+        </div>
+        <div id="header-inner" class="nav-container">
+          <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+          <div class="nav-container-inner">
+            <ul id="main-nav">
+              
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/">Home</a></li>
+              
+                    
+                  
+                <li class="main-nav-list-item" ><a class="main-nav-list-link" href="/about/index.html">About</a></li>
+              
+            </ul>
+            <nav id="sub-nav">
+              <div id="search-form-wrap">
+                
+                  <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://cvaliente.github.io"></form>
+                
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <div class="main-body container-inner">
+        <div class="main-body-inner">
+          <section id="main">
+            <div class="main-body-header">
+
+              <h1 class="header">uncategorized</h1>
+            </div>
+            <div class="main-body-content">
+              
+  <article id="post-hive-median-ci" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+      <!--  -->
+      
+        <header class="article-header">
+          
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-12-11T22:05:08.000Z"><a href="/2015/12/11/hive-median-ci/">2015-12-11</a></time>
-      
-      
-  
-    <h1 class="title">Calculating confidence intervals for median on Hive</h1>
+    <h1 class="article-title" itemprop="name">
+      Calculating confidence intervals for median on Hive
+    </h1>
   
 
-    </header>
-    <div class="entry">
+        </header>
       
-        <h2 id="Isnitial_Question"><a href="#Isnitial_Question" class="headerlink" title="Isnitial Question"></a>Isnitial Question</h2><p>At trivago, we are generating price-related statistics using billions of logged entries every day containing information provided by third parties. This can get quite messy, as you can easily find hotel prices at one million Euro and above in that huge dataset. In order to avoid having these extreme outliers - bugs in the implementation, invalid requests or however they may occur - we decided that in the future, want to show the median price of a hotel instead of the mean as we used to do (when we still had a much smaller dataset that was much easier to clean and control). One valid question during the transition was:<br>“How much data do I need to have a reliable median information?”</p>
+      <p class="article-byline">
+        <a href="/2015/12/11/hive-median-ci/" class="article-date">
+  <time datetime="2015-12-11T22:05:08.000Z" itemprop="datePublished">2015-12-11</time>
+</a>
+      </p>
+      <div class="article-entry" itemprop="articleBody">
+        <p>At trivago, we are generating price-related statistics using billions of logged entries every day containing information provided by third parties. This can get quite messy, as you can easily find hotel prices at one million Euro and above in that huge dataset. In order to avoid having these extreme outliers - bugs in the implementation, invalid requests or however they may occur - we decided that in the future, want to show the median price of a hotel instead of the mean as we used to do (when we still had a much smaller dataset that was much easier to clean and control). One valid question during the transition was:<br>“How much data do I need to have a reliable median information?”</p>
 <h2 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h2><p>For the mean, SQL and also Hive already provide tools that help answering that question - e.g <code>stddev_samp</code> and <code>variance</code> as part of the <a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inAggregateFunctions(UDAF" target="_blank" rel="external">Hive UDAFs</a>). Providing a confidence interval for your mean value is quite straightforward and also easy to understand for the unitiated. A 95% confidence interval is the interval, in which the “real” mean value lies with a confidence of 95%. I did some quick research (meaning, I googled) and found the following article discussing how to calculate the confidence interval of the median: <a href="https://epilab.ich.ucl.ac.uk/coursematerial/statistics/non_parametric/confidence_interval.html" target="_blank" rel="external">https://epilab.ich.ucl.ac.uk/coursematerial/statistics/non_parametric/confidence_interval.html</a></p>
 <h2 id="Formula"><a href="#Formula" class="headerlink" title="Formula"></a>Formula</h2><p>The formula itself is quite simple. The upper and lower bounds of our confidence interval is the \(u\)th and \(l\)th element of our (sorted) list of size \(n\), with </p>
 <p>$$<br>u = 1 + \frac{n}{2} + \left(N_{1-\alpha/2} * \frac{\sqrt{n}}{2}\right)<br>$$</p>
@@ -71,120 +123,193 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">WITH cte AS (</span><br><span class="line">	<span class="operator"><span class="keyword">SELECT</span> </span><br><span class="line">		item_id, </span><br><span class="line">		percentile(price,<span class="number">0.5</span>) <span class="keyword">AS</span> <span class="keyword">median</span>,</span><br><span class="line">		sort_array(collect_list(price)) <span class="keyword">AS</span> price_array,</span><br><span class="line">		<span class="keyword">count</span>(<span class="number">1</span>) <span class="keyword">AS</span> num_prices</span><br><span class="line">	<span class="keyword">FROM</span> </span><br><span class="line">		item_price_found_daily</span><br><span class="line">	<span class="keyword">WHERE</span> </span><br><span class="line">		ymd = <span class="number">20151210</span> </span><br><span class="line">	<span class="keyword">GROUP</span> <span class="keyword">BY</span> </span><br><span class="line">		item_id)</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	item_id,</span><br><span class="line">	<span class="keyword">median</span>/<span class="number">100</span> <span class="keyword">AS</span> <span class="keyword">median</span>,</span><br><span class="line">	num_prices,</span><br><span class="line">	num_prices/<span class="number">2</span>-<span class="number">1.96</span>/<span class="number">2</span>*<span class="keyword">sqrt</span>(num_prices) <span class="keyword">AS</span> lower_l,</span><br><span class="line">	price_array[<span class="keyword">greatest</span>(<span class="keyword">cast</span>(num_prices/<span class="number">2</span>-<span class="number">1.96</span>/<span class="number">2</span>*<span class="keyword">sqrt</span>(num_prices) <span class="keyword">AS</span> <span class="built_in">int</span>)-<span class="number">1</span>,<span class="number">0</span>)]/<span class="number">100</span> <span class="keyword">AS</span> lower_bound,</span><br><span class="line">	<span class="number">1</span>+num_prices/<span class="number">2</span>+<span class="number">1.96</span>/<span class="number">2</span>*<span class="keyword">sqrt</span>(num_prices) <span class="keyword">AS</span> upper_u,</span><br><span class="line">	price_array[<span class="keyword">least</span>(<span class="keyword">cast</span>(<span class="number">1</span>+num_prices/<span class="number">2</span>+<span class="number">1.96</span>/<span class="number">2</span>*<span class="keyword">sqrt</span>(num_prices) <span class="keyword">AS</span> <span class="built_in">int</span>)-<span class="number">1</span>,<span class="keyword">cast</span>(num_prices-<span class="number">1</span> <span class="keyword">AS</span> <span class="built_in">int</span>))]/<span class="number">100</span> <span class="keyword">AS</span> upper_bound,</span><br><span class="line">	price_array</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	cte</span></span><br></pre></td></tr></table></figure>
 <p>In the <code>cte</code> part we do the counting, collecting and sorting. Afterwards we access our price_array by the position of the elemnt we want.<br>We need some casting so everything is the correct type, and an additional least/greatest so the returned value stays within the bounds of the array (for very low \(n\), \(l\) and \(u\) can be smaller than 1 or greater than \(n\). Since the array position in Hive starts at 0, we also need to substract 1.<br>Hive is actually able to execute this in one mapreduce stage, but of course you need to store and sort through all your elements in one list, so it will need a lot of memory for this operation if your lists grow large. You might want to do sampling to reduce the size and get an approximation instead of an exact solution.</p>
 <h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>The confidence interval now gives us valuable information on how reliable our median is: Even at just one hundred prices the confidence interval often still is very small, since hotel prices often are within a very small range once all the outliers are excluded (as the median does by nature). As expected, the upper boundary usually is a bit further away from the median than the lower boundary.</p>
+<p>Unfortunately Hive is not really fast enough to do this in ad-hoc queries, but Impala recently got support for nested types so I am hopeful this might also possible in Impala eventually.</p>
 
-      
+      </div>
+      <footer class="article-footer">
+        <a data-url="http://cvaliente.github.io/2015/12/11/hive-median-ci/" data-id="cii3m86a20000obn8kksd37b2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+        
+          <a href="http://cvaliente.github.io/2015/12/11/hive-median-ci/#comments" class="article-comment-link"><i class="fa fa-comments"></i>Comments</a>
+        
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/confidence-interval/">confidence interval</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hive/">hive</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/median/">median</a></li></ul>
+
+      </footer>
     </div>
-    <footer>
+  </article>
+  
+    <section id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    </section>
+  
+  
+
+            </div>
+          </section>
+          <aside id="sidebar">
+  <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+  <div class="sidebar-top">
+    <p>follow:</p>
+    <ul class="social-links">
       
-        
-        
-  
-  <div class="tags">
-    <a href="/tags/confidence-interval/">confidence interval</a>, <a href="/tags/hive/">hive</a>, <a href="/tags/median/">median</a>
-  </div>
-
-        
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    
-    
-      <a class="addthis_button_tweet"></a>
-    
-    
-      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-    
-    
-      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-
+        <li><a class="social-tooltip" title="linkedin" href="https://linkedin.com/in/clemensvaliente" target="_blank"><i class="icon fa fa-linkedin"></i></a></li>
       
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-<section id="comment">
-  <h1 class="title">Comments</h1>
-
-  
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <li><a class="social-tooltip" title="facebook" href="http://www.facebook.com/clemens.valiente" target="_blank"><i class="icon fa fa-facebook"></i></a></li>
+      
+        <li><a class="social-tooltip" title="github" href="https://github.com/cvaliente" target="_blank"><i class="icon fa fa-github"></i></a></li>
+      
+    </ul>
   </div>
   
-</section>
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/11/setup-hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <p class="article-nav-title">How to set up hexo on github.io</p>
+      <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+    </a>
+  
+</nav>
 
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
-    <input type="hidden" name="q" value="site:cvaliente.github.io">
-  </form>
-</div>
+  
+  <div class="widgets-container">
+    
+      
+  <div class="widget-wrap">
+    <h3 class="widget-title">recents</h3>
+    <div class="widget">
+      <ul id="recent-post" class="no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"></p>
+              <p class="item-title"><a href="/2015/12/11/hive-median-ci/" class="title">Calculating confidence intervals for median on Hive</a></p>
+              <p class="item-date"><time datetime="2015-12-11T22:05:08.000Z" itemprop="datePublished">2015-12-11</time></p>
+            </div>
+          </li>
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category"></p>
+              <p class="item-title"><a href="/2015/12/11/setup-hexo/" class="title">How to set up hexo on github.io</a></p>
+              <p class="item-date"><time datetime="2015-12-11T22:05:08.000Z" itemprop="datePublished">2015-12-11</time></p>
+            </div>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-  
+    
+      
 
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/blog/">blog</a><small>1</small></li>
-  
-    <li><a href="/tags/confidence-interval/">confidence interval</a><small>1</small></li>
-  
-    <li><a href="/tags/github/">github</a><small>1</small></li>
-  
-    <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
-  
-    <li><a href="/tags/hive/">hive</a><small>1</small></li>
-  
-    <li><a href="/tags/median/">median</a><small>1</small></li>
-  
-  </ul>
-</div>
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
 
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/confidence-interval/">confidence interval</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hive/">hive</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/median/">median</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-float">
+    <h3 class="widget-title">tag cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/confidence-interval/" style="font-size: 10px;">confidence interval</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/median/" style="font-size: 10px;">median</a>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-list">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://www.trivago.com">trivago</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+    
+  </div>
 </aside>
-    <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+    <footer id="footer">
+  
+  <div class="container">
+    <div class="container-inner">
+      <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+      <div class="credit">
+        <h1 class="logo-wrap">
+          <a href="/" class="logo"></a>
+        </h1>
+        <p>&copy; 2015 Clemens Valiente</p>
+        <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+      </div>
+    </div>
   </div>
-  <footer id="footer" class="inner"><div class="alignleft">
+</footer>
+    
+<script>
+  var disqus_shortname = 'clemensvaliente';
   
-  &copy; 2015 Clemens Valiente
   
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-
-
-<script type="text/javascript">
-var disqus_shortname = 'clemensvaliente';
-
-(function(){
-  var dsq = document.createElement('script');
-  dsq.type = 'text/javascript';
-  dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-}());
+  var disqus_url = 'http://cvaliente.github.io/2015/12/11/hive-median-ci/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
 </script>
 
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
+
+
+
+
+  <script src="/scrollLoading/jquery.scrollLoading.js" type="text/javascript"></script>
+  <script src="/scrollLoading/main.js" type="text/javascript"></script>
+
+
+
+
+<script src="/js/html-patch.js" type="text/javascript"></script>
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
